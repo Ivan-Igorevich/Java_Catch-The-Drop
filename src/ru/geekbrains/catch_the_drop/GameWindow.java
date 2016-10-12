@@ -5,32 +5,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
+import java.io.*;
 
 public class GameWindow extends JFrame{
 
     private static GameWindow game_window;
     private static long last_frame_time;
     private static Image background;
-    private static Image game_over;
     private static DropsArray dropsArray;
+    private static GameOver gameOver;
     private static int speed = 200;
     private static int hits = 0;
     private static int score = 0;
     private static int level = 1;
-    private static boolean gameover = false;
 
     public static void main(String[] args) throws IOException {
         GameField game_field = new GameField();
+        gameOver = new GameOver();
 
         dropsArray = new DropsArray();
         dropsArray.addDrop(200, -100, speed);
 
         background = ImageIO.read(GameWindow.class.getResourceAsStream("background.png"));
-        game_over = ImageIO.read(GameWindow.class.getResourceAsStream("game_over.png"));
         game_window = new GameWindow();
         game_window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        game_window.setTitle("Level: " + level + "\tScore: " + score + "\tDrops clicked: " + hits);
+        game_window.setTitle("Level: " + level + "  Score: " + score + "  Drops clicked: " + hits + "  Highest Score is: " + gameOver.getOldScore());
         game_window.setLocation(200, 100);
         game_window.setSize(906, 478);
         game_window.setResizable(false);
@@ -40,13 +39,13 @@ public class GameWindow extends JFrame{
         game_field.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                if (!gameover) {
+                if (!gameOver.getGameOver()) {
                     int x = e.getX();
                     int y = e.getY();
                     if (dropsArray.isHitAny(x, y)) {
                         hits++;
                         score += level;
-                        game_window.setTitle("Level: " + level + "\tScore: " + score + "\tDrops clicked: " + hits);
+                        game_window.setTitle("Level: " + level + "  Score: " + score + "  Drops clicked: " + hits + "  Highest Score is: " + gameOver.getOldScore());
                         if (hits % 10 == 0) {
                             level++;
                             speed = 200;
@@ -62,9 +61,9 @@ public class GameWindow extends JFrame{
                     score = 0;
                     hits = 0;
                     speed = 200;
-                    game_window.setTitle("Level: " + level + "\tScore: " + score + "\tDrops clicked: " + hits);
+                    game_window.setTitle("Level: " + level + "  Score: " + score + "  Drops clicked: " + hits + "  Highest Score is: " + gameOver.getOldScore());
                     dropsArray.addDrop(game_field.getWidth(), speed);
-                    gameover = false;
+                    gameOver.setGameOver(false);
                 }
             }
         });
@@ -79,12 +78,17 @@ public class GameWindow extends JFrame{
         dropsArray.updatePosition(delta_time);
         dropsArray.drawSelf(g);
 
-        if (dropsArray.isAnyOut(game_window.getHeight())) {
-            dropsArray.removeDrop(dropsArray.current_drop);
-            gameover = true;
+        if (!gameOver.getGameOver()) {
+            if (dropsArray.isAnyOut(game_window.getHeight())) {
+                dropsArray.removeDrop(dropsArray.current_drop);
+                gameOver.setGameOver(true);
+            }
         }
-
-        if(gameover) g.drawImage(game_over, 280, 120, null);
+        else {
+//            gameOver.writeScore(score);
+            gameOver.updateScore(score);
+            gameOver.drawSelf(g);
+        }
 
     }
 

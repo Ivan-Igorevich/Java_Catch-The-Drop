@@ -36,3 +36,7 @@ out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/drop.png
 out/production/Catch_The_Drop/META-INF/MANIFEST.MF
 
 src/META-INF/MANIFEST.MF
+out/production/catch_the_drop/ru/geekbrains/catch_the_drop/GameOver.class
+.idea/project-template.xml
+*.xml
+.idea/description.html
