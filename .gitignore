@@ -1,42 +1,10 @@
 
 .DS_Store
 
-.idea/compiler.xml
+**/.idea/*
 
-.idea/copyright/profiles_settings.xml
+**/out/*
 
-.idea/encodings.xml
+**/META-INF/*
 
-.idea/misc.xml
-
-.idea/modules.xml
-
-.idea/workspace.xml
-
-out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/background.png
-
-out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/Drop.class
-
-out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/DropsArray.class
-
-out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/game_over.png
-
-out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/GameWindow.class
-
-out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/GameWindow$1.class
-
-out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/GameWindow$GameField.class
-
-out/production/Catch_The_Drop/ru/geekbrains/catch_the_drop/drop.png
-
-.idea/vcs.xml
-
-.idea/artifacts/Catch_The_Drop_jar.xml
-
-out/production/Catch_The_Drop/META-INF/MANIFEST.MF
-
-src/META-INF/MANIFEST.MF
-out/production/catch_the_drop/ru/geekbrains/catch_the_drop/GameOver.class
-.idea/project-template.xml
-*.xml
-.idea/description.html
+*.iml
